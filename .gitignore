@@ -61,6 +61,16 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
+# Django app cache directories
+*/__pycache__/
+*/migrations/__pycache__/
+backend/apps/*/__pycache__/
+backend/apps/*/migrations/__pycache__/
+
+# Django migrations (uncomment these lines if you don't want to track migrations)
+backend/apps/*/migrations/
+!backend/apps/*/migrations/__init__.py
+
 # Flask stuff:
 instance/
 .webassets-cache

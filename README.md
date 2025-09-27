@@ -78,8 +78,17 @@ cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r ../requirements.txt
+
+# Create migrations for all apps (important: correct order for custom user model)
+python manage.py makemigrations authentication ambulances emergencies tracking notifications hospitals
+
+# Apply all migrations
 python manage.py migrate
+
+# Create a superuser account
 python manage.py createsuperuser
+
+# Start the development server
 python manage.py runserver
 ```
 
@@ -145,6 +154,41 @@ The application supports multiple languages for wider accessibility:
 - **Caching**: Redis for session and data caching
 
 ## 🔧 Development
+
+### Troubleshooting
+
+#### Database Issues
+If you encounter migration or database errors:
+
+```bash
+# Remove existing database and start fresh
+rm backend/db.sqlite3
+
+# Create migrations in correct order (authentication first due to custom user model)
+python manage.py makemigrations authentication ambulances emergencies tracking notifications hospitals
+
+# Apply migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+```
+
+#### GIS Support (Future Enhancement)
+Currently, GIS features are commented out for easier setup. To enable full geospatial functionality:
+
+1. Install spatial libraries:
+   ```bash
+   # Ubuntu/Debian
+   sudo apt-get install gdal-bin libgdal-dev
+   sudo apt-get install libgeos-dev
+   sudo apt-get install libproj-dev libproj-dev
+   sudo apt-get install libspatialite-dev spatialite-bin
+   ```
+
+2. Uncomment GIS-related code in models and admin files
+3. Update database settings to use spatial backend
+4. Create new migrations for field type changes
 
 ### Project Structure
 ```
