@@ -96,6 +96,7 @@ python manage.py runserver
 ```bash
 cd frontend
 npm install
+# Note: You may see deprecation warnings - these are common in React projects and generally safe to ignore for development
 npm start
 ```
 
@@ -172,6 +173,26 @@ python manage.py migrate
 
 # Create superuser
 python manage.py createsuperuser
+```
+
+#### Frontend Dependencies
+If you encounter npm warnings or vulnerabilities:
+
+```bash
+# Check for security vulnerabilities
+npm audit
+
+# Fix automatically fixable vulnerabilities (may not fix all issues)
+npm audit fix
+
+# Note: Some vulnerabilities may require breaking changes to fix
+# For development, these are generally safe to ignore
+# The application will still function properly
+
+# For production deployment, consider:
+# 1. Updating to latest React version
+# 2. Using npm audit fix --force (test thoroughly after)
+# 3. Implementing security headers and proper deployment practices
 ```
 
 #### GIS Support (Future Enhancement)
