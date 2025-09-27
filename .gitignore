@@ -251,3 +251,97 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Additional Django files
+backend/staticfiles/
+backend/media/
+backend/local_settings.py
+backend/.env
+
+# React build and development files
+frontend/build/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development
+frontend/.env.test
+frontend/.env.production
+frontend/.env.production.local
+
+# Additional Python virtual environments
+backend/venv/
+backend/env/
+backend/.venv/
+venv/
+env/
+.venv/
+
+# Additional Node.js files
+yarn-error.log
+.eslintcache
+.npm
+.node_repl_history
+*.tgz
+
+# Test coverage
+coverage/
+.nyc_output
+htmlcov/
+.coverage
+.coverage.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Additional IDE files
+*.sublime-project
+*.sublime-workspace
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Additional OS files
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+.directory
+
+# Development certificates
+*.pem
+*.key
+*.crt
+
+# Database files
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Additional Flutter files
+mobile/ios/Flutter/flutter_assets/
+mobile/ios/Runner.xcworkspace/
+mobile/android/.gradle/
+mobile/android/captures/
+mobile/android/gradlew
+mobile/android/gradlew.bat
+mobile/android/local.properties
+
+# Documentation build
+docs/_build/
+docs/build/
+site/
+
+# Miscellaneous
+.sass-cache/
+connect.lock
+typings/
+.next/
+.nuxt/
+.output/
+.vercel/

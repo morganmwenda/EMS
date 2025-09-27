@@ -24,9 +24,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    # Third party apps (will be added when dependencies are available)
-    # 'rest_framework',
-    # 'corsheaders',
+    # Third party apps
+    'rest_framework',
+    'corsheaders',
     # Local apps
     'apps.authentication',
     'apps.ambulances',
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',  # Enable when corsheaders is available
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,8 +123,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom User Model
 AUTH_USER_MODEL = 'authentication.User'
 
-# REST Framework Configuration (will be enabled when djangorestframework is available)
-"""
+# REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -136,16 +135,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
 }
-"""
 
-# CORS settings (will be enabled when django-cors-headers is available)
-"""
+# CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 CORS_ALLOW_CREDENTIALS = True
-"""
+CORS_ALLOW_ALL_ORIGINS = False  # Set to True only for development if needed
 
 # Security settings for production
 SECURE_BROWSER_XSS_FILTER = True

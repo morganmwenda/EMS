@@ -10,7 +10,32 @@ import json
 
 def emergency_list(request):
     """List all emergencies"""
-    return JsonResponse({'message': 'Emergency list endpoint - to be implemented'})
+    # Sample data for testing frontend connectivity
+    sample_emergencies = [
+        {
+            'id': 1,
+            'emergency_id': 'EMS-2025-001',
+            'severity': 'critical',
+            'status': 'dispatched',
+            'location': '37.7749,-122.4194',
+            'reported_at': '2025-09-27T10:00:00Z',
+            'description': 'Cardiac arrest reported'
+        },
+        {
+            'id': 2,
+            'emergency_id': 'EMS-2025-002',
+            'severity': 'moderate',
+            'status': 'en_route',
+            'location': '37.7849,-122.4094',
+            'reported_at': '2025-09-27T10:15:00Z',
+            'description': 'Traffic accident with injuries'
+        }
+    ]
+    return JsonResponse({
+        'status': 'success',
+        'count': len(sample_emergencies),
+        'results': sample_emergencies
+    })
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -36,4 +61,13 @@ def dispatch_ambulance(request, emergency_id):
 
 def emergency_types(request):
     """Get emergency types"""
-    return JsonResponse({'message': 'Emergency types endpoint - to be implemented'})
+    emergency_types = [
+        {'id': 1, 'name': 'Cardiac Emergency', 'priority_level': 1, 'description': 'Heart-related emergencies'},
+        {'id': 2, 'name': 'Trauma', 'priority_level': 1, 'description': 'Severe injuries from accidents'},
+        {'id': 3, 'name': 'Respiratory Emergency', 'priority_level': 2, 'description': 'Breathing difficulties'},
+        {'id': 4, 'name': 'Medical Emergency', 'priority_level': 3, 'description': 'General medical emergencies'},
+    ]
+    return JsonResponse({
+        'status': 'success',
+        'results': emergency_types
+    })

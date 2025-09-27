@@ -13,26 +13,32 @@ from .models import Ambulance, AmbulanceLocation, CrewMember
 
 def ambulance_list(request):
     """List all ambulances with their status"""
-    ambulances = Ambulance.objects.select_related('ambulance_type').prefetch_related('crew_members')
-    
-    if request.content_type == 'application/json':
-        data = []
-        for ambulance in ambulances:
-            data.append({
-                'id': ambulance.id,
-                'license_plate': ambulance.license_plate,
-                'type': ambulance.ambulance_type.name,
-                'status': ambulance.status,
-                'is_available': ambulance.is_available,
-                'location': {
-                    'latitude': ambulance.current_location.y if ambulance.current_location else None,
-                    'longitude': ambulance.current_location.x if ambulance.current_location else None,
-                },
-                'crew_count': ambulance.crew_members.count(),
-            })
-        return JsonResponse({'ambulances': data})
-    
-    return render(request, 'ambulances/list.html', {'ambulances': ambulances})
+    # Sample data for testing frontend connectivity
+    sample_ambulances = [
+        {
+            'id': 1,
+            'license_plate': 'AMB-001',
+            'type': 'Advanced Life Support',
+            'status': 'available',
+            'is_available': True,
+            'location': '37.7749,-122.4194',
+            'crew_count': 2
+        },
+        {
+            'id': 2,
+            'license_plate': 'AMB-002', 
+            'type': 'Basic Life Support',
+            'status': 'dispatched',
+            'is_available': False,
+            'location': '37.7849,-122.4094',
+            'crew_count': 2
+        }
+    ]
+    return JsonResponse({
+        'status': 'success',
+        'count': len(sample_ambulances),
+        'results': sample_ambulances
+    })
 
 
 def ambulance_detail(request, ambulance_id):

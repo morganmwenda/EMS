@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ApiTestComponent from '../components/ApiTestComponent';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const HomePage = () => {
 
   return (
     <div className="container">
+      <ApiTestComponent />
       <div className="card" style={{ textAlign: 'center', color: 'white' }}>
         <h1 style={{ fontSize: '3rem', marginBottom: '1rem', fontWeight: 700 }}>
           🚑 Emergency Management System
