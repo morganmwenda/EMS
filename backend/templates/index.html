@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .emergency-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
+        }
+        
+        .emergency-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.5);
+        }
+        
+        .api-info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(33, 150, 243, 0.5);
+            text-align: left;
+        }
+        
+        .api-info code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚑 Emergency Management System</h1>
+        <p class="subtitle">Fast, reliable emergency response when every second counts</p>
+        
+        <button class="emergency-btn" onclick="initiateEmergency()">
+            🆘 EMERGENCY SOS
+        </button>
+        
+        <div class="status">
+            <h3>✅ System Status: Online</h3>
+            <p>All emergency services are operational</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>📍 GPS Tracking</h3>
+                <p>Real-time location tracking of ambulances and emergency responses</p>
+            </div>
+            <div class="feature">
+                <h3>🚨 Instant Dispatch</h3>
+                <p>Automated ambulance allocation based on proximity and specialization</p>
+            </div>
+            <div class="feature">
+                <h3>🏥 Hospital Integration</h3>
+                <p>Seamless integration with local hospital databases</p>
+            </div>
+            <div class="feature">
+                <h3>👨‍⚕️ Medical Support</h3>
+                <p>Video/voice consultation with healthcare professionals</p>
+            </div>
+        </div>
+        
+        <div class="api-info">
+            <h3>🔧 Developer API Endpoints</h3>
+            <p><strong>Authentication:</strong> <code>/api/auth/</code></p>
+            <p><strong>Emergencies:</strong> <code>/api/emergencies/</code></p>
+            <p><strong>Ambulances:</strong> <code>/api/ambulances/</code></p>
+            <p><strong>Real-time Tracking:</strong> <code>/api/tracking/</code></p>
+            <p><strong>Emergency SOS:</strong> <code>/api/auth/emergency-sos/</code></p>
+        </div>
+    </div>
+    
+    <script>
+        function initiateEmergency() {
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const emergency = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    fetch('/api/auth/emergency-sos/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(emergency)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(`🚑 Emergency dispatched successfully!\n\nEmergency ID: ${data.emergency_id}\nEstimated arrival: ${data.estimated_arrival}\n\n${data.message}`);
+                        } else {
+                            alert(`❌ Error: ${data.error}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('❌ Failed to dispatch emergency. Please try again or call emergency services directly.');
+                    });
+                }, function(error) {
+                    alert('❌ Location access denied. Please enable location services for emergency dispatch.');
+                });
+            } else {
+                alert('❌ Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
+</body>
+</html>
