@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.gis.db import models as gis_models
+# from django.contrib.gis.db import models as gis_models  # Commented out for now - add GIS support later
 
 
 class User(AbstractUser):
@@ -19,7 +19,8 @@ class User(AbstractUser):
     emergency_contact = models.CharField(max_length=20, blank=True, null=True)
     medical_info = models.TextField(blank=True, null=True, help_text="Allergies, medications, conditions")
     is_verified = models.BooleanField(default=False)
-    location = gis_models.PointField(blank=True, null=True, help_text="User's current location")
+    # location = gis_models.PointField(blank=True, null=True)  # TODO: Enable when GIS support is added
+    location = models.CharField(max_length=255, blank=True, null=True, help_text="Temporary text field - will be PointField when GIS is enabled")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

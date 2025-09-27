@@ -54,7 +54,8 @@ class Emergency(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='reported')
     
     # Location information
-    location = gis_models.PointField(help_text="Emergency location")
+    # location = gis_models.PointField()  # TODO: Enable when GIS support is added
+    location = models.CharField(max_length=200, help_text="Temporary text field - will be PointField when GIS is enabled")
     address = models.TextField(blank=True, null=True)
     landmark = models.CharField(max_length=200, blank=True, null=True)
     

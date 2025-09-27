@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.gis.admin import OSMGeoAdmin
+# from django.contrib.gis.admin import GISModelAdmin  # Commented out for now - add GIS support later
 from .models import AmbulanceType, Ambulance, AmbulanceLocation, CrewMember
 
 
@@ -10,7 +10,8 @@ class AmbulanceTypeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Ambulance)
-class AmbulanceAdmin(OSMGeoAdmin):
+# class AmbulanceAdmin(GISModelAdmin):  # TODO: Use GISModelAdmin when GIS support is added
+class AmbulanceAdmin(admin.ModelAdmin):
     list_display = ('license_plate', 'ambulance_type', 'status', 'is_active', 'updated_at')
     list_filter = ('status', 'is_active', 'ambulance_type')
     search_fields = ('license_plate',)

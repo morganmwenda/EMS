@@ -77,7 +77,7 @@ A comprehensive emergency response application that allows users to instantly co
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver

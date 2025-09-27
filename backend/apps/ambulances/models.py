@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.gis.db import models as gis_models
+# from django.contrib.gis.db import models as gis_models  # Commented out for now - add GIS support later
 from apps.authentication.models import User
 
 
@@ -30,8 +30,10 @@ class Ambulance(models.Model):
     license_plate = models.CharField(max_length=20, unique=True)
     ambulance_type = models.ForeignKey(AmbulanceType, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
-    current_location = gis_models.PointField(help_text="Current GPS location")
-    base_station = gis_models.PointField(help_text="Home base location")
+        # current_location = gis_models.PointField(null=True, blank=True)  # TODO: Enable when GIS support is added
+    current_location = models.CharField(max_length=200, null=True, blank=True, help_text="Temporary text field - will be PointField when GIS is enabled")
+    # base_station = gis_models.PointField(null=True, blank=True)  # TODO: Enable when GIS support is added
+    base_station = models.CharField(max_length=200, null=True, blank=True, help_text="Temporary text field - will be PointField when GIS is enabled")
     crew_members = models.ManyToManyField(User, related_name='ambulance_crew', blank=True)
     equipment = models.JSONField(default=list, help_text="Available medical equipment")
     last_maintenance = models.DateTimeField(blank=True, null=True)
@@ -54,7 +56,8 @@ class Ambulance(models.Model):
 class AmbulanceLocation(models.Model):
     """Historical location tracking for ambulances"""
     ambulance = models.ForeignKey(Ambulance, on_delete=models.CASCADE, related_name='location_history')
-    location = gis_models.PointField()
+    # location = gis_models.PointField()  # TODO: Enable when GIS support is added
+    location = models.CharField(max_length=255, help_text="Temporary text field - will be PointField when GIS is enabled")
     timestamp = models.DateTimeField(auto_now_add=True)
     speed = models.FloatField(blank=True, null=True, help_text="Speed in km/h")
     heading = models.FloatField(blank=True, null=True, help_text="Direction in degrees")

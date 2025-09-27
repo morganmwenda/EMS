@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.gis.db import models as gis_models
+# from django.contrib.gis.db import models as gis_models  # Commented out for now - add GIS support later
 
 
 class Hospital(models.Model):
@@ -16,7 +16,8 @@ class Hospital(models.Model):
     name = models.CharField(max_length=200)
     hospital_type = models.CharField(max_length=20, choices=HOSPITAL_TYPES, default='general')
     address = models.TextField()
-    location = gis_models.PointField(help_text="Hospital GPS location")
+    # location = gis_models.PointField()  # TODO: Enable when GIS support is added
+    location = models.CharField(max_length=255, help_text="Temporary text field - will be PointField when GIS is enabled")
     phone_number = models.CharField(max_length=20)
     emergency_phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
